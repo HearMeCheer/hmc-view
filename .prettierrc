@@ -1,0 +1,15 @@
+{
+    "tabWidth": 4,
+    "endOfLine": "lf",
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "printWidth": 80,
+    "importOrder": [
+        "^(next(-auth)?|react|prop-types)/?",
+        "<THIRD_PARTY_MODULES>",
+        "^[.]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
+}
