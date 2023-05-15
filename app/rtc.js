@@ -211,8 +211,15 @@ export const replaceUserMediaStream = (peerConnection, mediaStream) => {
 export const makeBlankMediaStream = () => {
     const context = new _AudioContext();
     const oscillatorNode = context.createOscillator();
+    const gainNode = context.createGain();
     const mediaStreamDestination = context.createMediaStreamDestination();
-    oscillatorNode.connect(mediaStreamDestination);
+
+    gainNode.gain.value = 0.000_000_000_1;
+
+    oscillatorNode.connect(gainNode);
+    gainNode.connect(mediaStreamDestination);
+
+    oscillatorNode.start();
     return mediaStreamDestination.stream;
 };
 
