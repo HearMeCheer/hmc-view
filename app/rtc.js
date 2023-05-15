@@ -214,7 +214,7 @@ export const makeBlankMediaStream = () => {
     const gainNode = context.createGain();
     const mediaStreamDestination = context.createMediaStreamDestination();
 
-    gainNode.gain.value = 0.0001;
+    gainNode.gain.value = 0.000_000_000_1;
 
     oscillatorNode.connect(gainNode);
     gainNode.connect(mediaStreamDestination);
