@@ -1,4 +1,16 @@
-import { omit } from '@hearmecheer/shared/Dict';
+/**
+ * Omits specified keys from a dict
+ * @param dict {Object}
+ * @param keys {string[]}
+ * @return {Object}
+ */
+function omit(dict, keys) {
+    const copy = { ...dict };
+    for (const key of keys) {
+        delete copy[key];
+    }
+    return copy;
+}
 
 const makeTrackList = (schema) => ({
     _keyList: {},
