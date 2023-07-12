@@ -39,15 +39,12 @@ const JoinEventDialog = () => {
                 enableMessageChannel: true,
                 maxVideoTracks,
             }).catch((err) => {
-                var errStr = 'unknown';
-                if (err && err.toString) {
-                    errStr = err.toString();
-                }
-                
-                if (err && err.name == "NotAllowedError") {
-                    Snackbar.emitError('Device (Microphone): ' + errStr);
+                if (err.name == 'NotAllowedError') {
+                    Snackbar.emitError(
+                        'Device (Microphone): ' + err.toString(),
+                    );
                 } else {
-                    Snackbar.emitError(errStr);
+                    Snackbar.emitError(err.toString());
                 }
                 console.error('Error connecting, mic access granted?', err);
                 setUserReady(false);
