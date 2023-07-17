@@ -23,6 +23,9 @@ const LocalStream = {
     },
 
     async make() {
+        if (this.mediaStream) {
+            return;
+        }
         const mediaStream = await getPreferredMicrophoneMediaStream({
             useVideo: AuthParticipant.current?.canSendVideo,
         });
@@ -90,6 +93,24 @@ const LocalStream = {
         }
         this.publishChange({ type: 'videoEnabled', payload: enabled });
     },
+
+    // Really what worked is the server sending out RTCP messages:
+    // peerConnection.WriteRTCP([]rtcp.Packet{&rtcp.ReceiverEstimatedMaximumBitrate{Bitrate: 1200 * 1000}
+    // setVideoBandwidth() {
+    //     console.log('setting video bandwith via getSenders()')
+    //     const senderList = this.peerConnection.getSenders(); // VIDEO bitrate
+    //     console.log(senderList)
+    //     senderList.forEach((sender) => {
+    //         if (sender.track.kind == 'video') {
+    //             const parameters = sender.getParameters();
+    //             if (parameters.encodings && parameters.encodings.length > 0) {
+    //                 console.log(parameters)
+    //                 parameters.encodings[0].maxBitrate = 1000000;
+    //                 sender.setParameters(parameters);
+    //             }
+    //         }
+    //     });
+    // },
 
     setUsingMicrophone(enabled) {
         this.usingMicrophone = enabled;
